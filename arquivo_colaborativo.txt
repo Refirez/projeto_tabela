@@ -1,0 +1,4 @@
+Lista inicial de tópicos para o projeto:
+- Introdução
+- Objetivos
+- Metodologia

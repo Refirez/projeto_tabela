@@ -4,3 +4,4 @@ Lista inicial de tópicos para o projeto:
 - Metodologia
 - Responsividade
 - Segurança
+- confiabilidade

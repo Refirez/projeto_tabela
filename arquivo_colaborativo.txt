@@ -3,3 +3,4 @@ Lista inicial de tópicos para o projeto:
 - Objetivos
 - Metodologia
 - Responsividade
+- Segurança

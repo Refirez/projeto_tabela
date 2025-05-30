@@ -16,6 +16,7 @@ export default function Home() {
           <li className="mb-2 tracking-[-.01em]">
             Get started by editing{"Primeira Alteração do site"}
             <h1>Second alteration</h1>
+            <h1>third alteration</h1>
             <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
               src/app/page.tsx
             </code>

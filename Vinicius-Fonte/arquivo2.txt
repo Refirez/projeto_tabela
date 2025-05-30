@@ -1,1 +1,5 @@
+<<<<<<< HEAD
+Conteudo do segundo arquivo
+=======
 Este é o arquivo 2
+>>>>>>> 89e7a12d1c84091bc515762bee408dbede0942d4

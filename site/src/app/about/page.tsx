@@ -1,11 +1,47 @@
-import Card from "../../../components/card/card";
-export default function About (){
-     return (
-    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
-      <Card
-        title="Bernardo Cidrão Neves"
-        imageUrl="public/1628727010314.jpg"
-      />
+import Image from "next/image";
+import { title } from "process";
+import Card from "../../../components/card/Card";
+
+export default function About() {
+  const desenvolvedores = [
+    {
+      title: "Bernardo Cidrão Neves",
+      imageUrl: "/eu.jpg"
+    },
+    {
+      title: "Vinicius Fontenele Costa Lima",
+      imageUrl: "/12345567.png"
+    },
+    {
+      title: "Antônio Carlos",
+      imageUrl: "/Carlos.jpg"
+    },
+    {
+      title:"Arthur Bechara",
+      imageUrl:"/art.png"
+    },
+    {
+      title:"Gustavo Batista",
+      imageUrl:"/bat.png"
+    },
+  ];
+
+  return (
+    <div style={{
+      display: 'flex',
+      justifyContent: 'center',
+      flexWrap: 'wrap',
+      gap: '2rem',
+      marginTop: '2rem',
+
+    }}>
+      {desenvolvedores.map((dev, index) => (
+        <Card
+          key={index}
+          title={dev.title}
+          imageUrl={dev.imageUrl}
+        />
+      ))}
     </div>
   );
 }

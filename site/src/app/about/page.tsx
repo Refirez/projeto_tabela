@@ -27,14 +27,16 @@ export default function About() {
   ];
 
   return (
-    <div style={{
-      display: 'flex',
-      justifyContent: 'center',
-      flexWrap: 'wrap',
-      gap: '2rem',
-      marginTop: '2rem',
+    <div style={{textAlign: 'center', marginTop:'2rem'}}>
+      <h1>Desenvolvedores</h1>
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+        gap: '2rem',
+        marginTop: '2rem',
 
-    }}>
+      }}>
       {desenvolvedores.map((dev, index) => (
         <Card
           key={index}
@@ -43,5 +45,6 @@ export default function About() {
         />
       ))}
     </div>
+  </div>
   );
 }

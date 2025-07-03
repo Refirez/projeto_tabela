@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body>
-        <h1>Nossa SPA é muito massa</h1>
+        <h1>Nosso site é muito massa</h1>
         <nav>
           <ul>
             <li><Link href="/">Home</Link></li>

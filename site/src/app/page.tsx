@@ -5,9 +5,7 @@ const ELEMENTS = ['H', 'He', 'Li', 'C', 'N', 'O', 'F', 'Ne', 'Na', 'Mg', 'Al', '
 export default function Home() {
   return (
     <>
-    <p>lar doce lar</p>
-    <Link href="/cadastro">Cadastre-se!</Link><br />
-    <Link href="/login">fazer Login</Link><br></br>
+     
         <main className="relative min-h-screen bg-gradient-to-br from-blue-100 via-white to-blue-200 flex items-center justify-center px-4 overflow-hidden">
       {/* Partículas de símbolos químicos animados */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
@@ -43,9 +41,12 @@ export default function Home() {
           Um guia interativo para compreender os elementos químicos, suas propriedades e a organização da tabela periódica.
         </p>
         
-          <a className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">
-            Começar Exploração
-          </a>
+          <Link 
+          href="/tabela" 
+          className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition"
+        >
+          Começar Exploração
+        </Link>
      
       </div>
     </main>

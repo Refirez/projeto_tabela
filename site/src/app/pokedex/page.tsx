@@ -1,6 +1,6 @@
 export default async function Pokedex() {
     
-    const dados = await fetch ('https://pokeapi.co/api/v2/pokemon/100/')
+    const dados = await fetch ('https://pokeapi.co/api/v2/pokemon/80/')
     const pokemon = await dados.json()
   
 

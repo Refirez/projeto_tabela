@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
 import { useRouter } from "expo-router";
+import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -48,10 +48,10 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "#2563EB",
-    paddingVertical: 14,
+    paddingVertical: 15,
     paddingHorizontal: 20,
     borderRadius: 12,
-    width: width * 0.7,
+    width: width * 0.5,
     alignItems: "center",
   },
   buttonText: {

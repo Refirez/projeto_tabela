@@ -1,4 +1,5 @@
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 
 const ELEMENTS = [
   { id: "1", symbol: "H", name: "Hidrogênio" },
@@ -9,7 +10,7 @@ const ELEMENTS = [
 
 export default function TabelaScreen() {
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.title}>Tabela Periódica</Text>
       <FlatList
         data={ELEMENTS}
@@ -21,7 +22,7 @@ export default function TabelaScreen() {
           </View>
         )}
       />
-    </View>
+    </ScrollView>
   );
 }
 

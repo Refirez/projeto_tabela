@@ -1,55 +1,61 @@
-import Link from 'next/link'
+"use client";
+import Link from "next/link";
+import { useMemo } from "react";
 
-const ELEMENTS = ['H', 'He', 'Li', 'C', 'N', 'O', 'F', 'Ne', 'Na', 'Mg', 'Al', 'Si', 'P', 'S', 'Cl', 'Ar'];
+const ELEMENTS = [
+  "H","He","Li","Be","B","C","N","O","F","Ne",
+  "Na","Mg","Al","Si","P","S","Cl","Ar","K","Ca","Fm","Fe"
+];
 
 export default function Home() {
-  return (
-    <>
-     
-        <main className="relative min-h-screen bg-gradient-to-br from-blue-100 via-white to-blue-200 flex items-center justify-center px-4 overflow-hidden">
-      {/* Partículas de símbolos químicos animados */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-        {[...Array(25)].map((_, i) => {
-          const symbol = ELEMENTS[Math.floor(Math.random() * ELEMENTS.length)];
-          const size = Math.random() * 24 + 14; // 14 a 38 px
-          const colorHue = Math.random() * 360;
-          return (
-            <span
-              key={i}
-              className="absolute font-semibold animate-float opacity-70"
-              style={{
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                fontSize: `${size}px`,
-                color: `hsl(${colorHue}, 70%, 50%)`,
-                animationDelay: `${Math.random() * 6}s`,
-                animationDuration: `${6 + Math.random() * 5}s`,
-                userSelect: 'none',
-              }}
-            >
-              {symbol}
-            </span>
-          );
-        })}
-      </div>
+  const spiralElements = useMemo(() => {
+    const items = [];
+    const centerX = 250;
+    const centerY = 250;
+    const spacing = 25; // controla a distância entre as voltas
+    const angleStep = 0.5; // controla o "aperto" da espiral
 
-      <div className="relative text-center max-w-2xl bg-white/80 backdrop-blur-md p-10 rounded-lg shadow-lg z-10">
-        <h1 className="text-4xl font-bold text-blue-700 mb-4">
-          Explorando a Tabela Periódica
-        </h1>
-        <p className="text-gray-700 mb-6 text-lg">
-          Um guia interativo para compreender os elementos químicos, suas propriedades e a organização da tabela periódica.
-        </p>
-        
-          <Link 
-          href="/tabela" 
-          className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition"
-        >
-          Começar Exploração
-        </Link>
-     
+    for (let i = 0; i < ELEMENTS.length; i++) {
+      const angle = i * angleStep;
+      const radius = spacing * angle;
+      const x = centerX + radius * Math.cos(angle);
+      const y = centerY + radius * Math.sin(angle);
+
+      items.push({ symbol: ELEMENTS[i], x, y });
+    }
+    return items;
+  }, []);
+
+  return (
+    <main className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-100 via-white to-blue-200">
+      <h1 className="text-3xl font-bold mb-6 text-blue-700">
+        Explorando a Tabela Periódica
+      </h1>
+
+      <div className="relative w-[500px] h-[500px]">
+        {spiralElements.map((el, i) => (
+          <span
+            key={i}
+            className="absolute font-bold text-sm cursor-pointer hover:scale-125 transition-transform"
+            style={{
+              left: `${el.x}px`,
+              top: `${el.y}px`,
+              transform: "translate(-50%, -50%)", // centraliza cada elemento
+              color: `hsl(${(i * 40) % 360},70%,40%)`,
+            }}
+          >
+            {el.symbol}
+          </span>
+        ))}
+
+        {/* Bola clicável no centro */}
+        <Link
+          href="/tabela"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 
+                    w-6 h-6 rounded-full bg-blue-600 hover:bg-blue-700 cursor-pointer 
+                    shadow-lg flex items-center justify-center transition"
+        />
       </div>
     </main>
-    </>
   );
-};
+}

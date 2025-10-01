@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useMemo } from "react";
 
 const ELEMENTS = [
-  "H","He","Li","Be","B","C","N","O","F","Ne",
+  "H","H","Li","Be","B","C","N","O","F","Ne",
   "Na","Mg","Al","Si","P","S","Cl","Ar","K","Ca","Fm","Fe"
 ];
 
@@ -12,7 +12,7 @@ export default function Home() {
     const items = [];
     const centerX = 250;
     const centerY = 250;
-    const spacing = 25; // controla a distância entre as voltas
+    const spacing = 28; // controla a distância entre as voltas
     const angleStep = 0.5; // controla o "aperto" da espiral
 
     for (let i = 0; i < ELEMENTS.length; i++) {

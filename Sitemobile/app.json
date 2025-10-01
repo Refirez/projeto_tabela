@@ -8,7 +8,7 @@
     "scheme": "sitemobile",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
-   "ios": {
+    "ios": {
       "requireFullScreen": true
     },
     "android": {
@@ -16,7 +16,8 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.refire.Sitemobile"
     },
     "web": {
       "bundler": "metro",
@@ -30,13 +31,21 @@
           "initialOrientation": "DEFAULT",
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 200,
-          "resizeMode": "contain", 
+          "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ]
+      ],
+      "expo-router",
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "e3d96654-2441-4947-9afa-a891127a5de1"
+      }
     }
   }
 }

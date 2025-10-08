@@ -1,3 +1,4 @@
+import Link from "next/link";
 export default function Home() {
   const elements = [
     // Posições distribuídas por toda a tela
@@ -60,9 +61,11 @@ export default function Home() {
             Um guia interativo para compreender os elementos químicos, suas propriedades e a organização da tabela periódica.
           </p>
 
-          <button className="bg-blue-600 hover:bg-blue-700 text-white text-xl font-semibold px-12 py-4 rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105">
-            Começar Exploração
-          </button>
+          <Link href="/tabela">
+            <button className="bg-blue-600 hover:bg-blue-700 text-white text-xl font-semibold px-12 py-4 rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105">
+              Começar Exploração
+            </button>
+          </Link>
         </div>
       </div>
     </div>

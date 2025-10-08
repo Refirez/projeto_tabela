@@ -1,76 +1,55 @@
+
 "use client";
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react';
 
 interface User {
   id: string;
-  email: string;
   name: string;
+  email: string;
 }
 
 interface AuthContextType {
   user: User | null;
-  login: (email: string, password: string) => Promise<void>;
+  login: (userData: User) => void;
   logout: () => void;
-  register: (name: string, email: string, password: string) => Promise<void>;
-  favorites: string[];
-  toggleFavorite: (elementSymbol: string) => void;
+  register: (userData: User) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
-  const [favorites, setFavorites] = useState<string[]>([]);
 
-  // Carregar dados do localStorage ao inicializar
   useEffect(() => {
-    const savedUser = localStorage.getItem('user');
-    const savedFavorites = localStorage.getItem('favorites');
-    
+    // Verificar se há usuário salvo no localStorage ao carregar a página
+    const savedUser = localStorage.getItem('currentUser');
     if (savedUser) {
       setUser(JSON.parse(savedUser));
     }
-    if (savedFavorites) {
-      setFavorites(JSON.parse(savedFavorites));
-    }
   }, []);
 
-  const login = async (email: string, password: string) => {
-    // Simulação de login - na prática, faria uma requisição à API
-    const userData = { id: '1', email, name: 'Usuário' };
+  const login = (userData: User) => {
     setUser(userData);
-    localStorage.setItem('user', JSON.stringify(userData));
+    localStorage.setItem('currentUser', JSON.stringify(userData));
+  };
+
+  const register = (userData: User) => {
+    setUser(userData);
+    localStorage.setItem('currentUser', JSON.stringify(userData));
+    
+    // Salvar também na lista de usuários
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    users.push(userData);
+    localStorage.setItem('users', JSON.stringify(users));
   };
 
   const logout = () => {
     setUser(null);
-    setFavorites([]);
-    localStorage.removeItem('user');
-    localStorage.removeItem('favorites');
-  };
-
-  const register = async (name: string, email: string, password: string) => {
-    // Simulação de registro
-    const userData = { id: '1', email, name };
-    setUser(userData);
-    localStorage.setItem('user', JSON.stringify(userData));
-  };
-
-  const toggleFavorite = (elementSymbol: string) => {
-    if (!user) return;
-    
-    setFavorites(prev => {
-      const newFavorites = prev.includes(elementSymbol)
-        ? prev.filter(fav => fav !== elementSymbol)
-        : [...prev, elementSymbol];
-      
-      localStorage.setItem('favorites', JSON.stringify(newFavorites));
-      return newFavorites;
-    });
+    localStorage.removeItem('currentUser');
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, register, favorites, toggleFavorite }}>
+    <AuthContext.Provider value={{ user, login, logout, register }}>
       {children}
     </AuthContext.Provider>
   );

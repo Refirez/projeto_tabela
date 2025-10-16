@@ -141,17 +141,20 @@ const ELEMENTS = [
 ];
 
 const FAMILY_COLORS = {
-  "metais-alcalinos": "bg-red-200 border-red-500 hover:bg-red-300",
-  "metais-alcalino-terrosos": "bg-orange-200 border-orange-500 hover:bg-orange-300",
-  "metais-transicao": "bg-yellow-200 border-yellow-500 hover:bg-yellow-300",
-  "metais-representativos": "bg-blue-200 border-blue-500 hover:bg-blue-300",
-  "semimetais": "bg-green-200 border-green-500 hover:bg-green-300",
-  "nao-metais": "bg-purple-200 border-purple-500 hover:bg-purple-300",
-  "halogenios": "bg-pink-200 border-pink-500 hover:bg-pink-300",
-  "gases-nobres": "bg-indigo-200 border-indigo-500 hover:bg-indigo-300",
-  "lantanideos": "bg-teal-200 border-teal-500 hover:bg-teal-300",
-  "actinideos": "bg-cyan-200 border-cyan-500 hover:bg-cyan-300",
+  "metais-alcalinos": "bg-red-200 border-red-500 hover:bg-red-300 dark:bg-red-400 dark:border-red-300 dark:hover:bg-red-500",
+  "metais-alcalino-terrosos": "bg-orange-200 border-orange-500 hover:bg-orange-300 dark:bg-orange-400 dark:border-orange-300 dark:hover:bg-orange-500",
+  "metais-transicao": "bg-yellow-200 border-yellow-500 hover:bg-yellow-300 dark:bg-yellow-400 dark:border-yellow-300 dark:hover:bg-yellow-500",
+  "metais-representativos": "bg-blue-200 border-blue-500 hover:bg-blue-300 dark:bg-blue-400 dark:border-blue-300 dark:hover:bg-blue-500",
+  "semimetais": "bg-green-200 border-green-500 hover:bg-green-300 dark:bg-green-400 dark:border-green-300 dark:hover:bg-green-500",
+  "nao-metais": "bg-purple-200 border-purple-500 hover:bg-purple-300 dark:bg-purple-400 dark:border-purple-300 dark:hover:bg-purple-500",
+  "halogenios": "bg-pink-200 border-pink-500 hover:bg-pink-300 dark:bg-pink-400 dark:border-pink-300 dark:hover:bg-pink-500",
+  "gases-nobres": "bg-indigo-200 border-indigo-500 hover:bg-indigo-300 dark:bg-indigo-400 dark:border-indigo-300 dark:hover:bg-indigo-500",
+  "lantanideos": "bg-teal-200 border-teal-500 hover:bg-teal-300 dark:bg-teal-400 dark:border-teal-300 dark:hover:bg-teal-500",
+  "actinideos": "bg-cyan-200 border-cyan-500 hover:bg-cyan-300 dark:bg-cyan-400 dark:border-cyan-300 dark:hover:bg-cyan-500",
 };
+
+
+
 
 export default function TabelaPeriodica() {
   const [selectedElement, setSelectedElement] = useState<any>(null);
@@ -160,18 +163,19 @@ export default function TabelaPeriodica() {
   const [darkMode, setDarkMode] = useState(false);
 
   const families = [
-    { id: "all", name: "Todos os Elementos", color: "bg-gray-200" },
-    { id: "metais-alcalinos", name: "Metais Alcalinos", color: "bg-red-200" },
-    { id: "metais-alcalino-terrosos", name: "Metais Alcalino-Terrosos", color: "bg-orange-200" },
-    { id: "metais-transicao", name: "Metais de Transição", color: "bg-yellow-200" },
-    { id: "metais-representativos", name: "Metais Representativos", color: "bg-blue-200" },
-    { id: "semimetais", name: "Semimetais", color: "bg-green-200" },
-    { id: "nao-metais", name: "Não Metais", color: "bg-purple-200" },
-    { id: "halogenios", name: "Halogênios", color: "bg-pink-200" },
-    { id: "gases-nobres", name: "Gases Nobres", color: "bg-indigo-200" },
-    { id: "lantanideos", name: "Lantanídeos", color: "bg-teal-200" },
-    { id: "actinideos", name: "Actinídeos", color: "bg-cyan-200" },
-  ];
+  { id: "all", name: "Todos os Elementos", color: "bg-gray-200 dark:bg-gray-700 dark:text-white" },
+  { id: "metais-alcalinos", name: "Metais Alcalinos", color: "bg-red-200 border-red-500 hover:bg-red-300 dark:bg-red-400 dark:border-red-300 dark:hover:bg-red-500 " },
+  { id: "metais-alcalino-terrosos", name: "Metais Alcalino-Terrosos", color: "bg-orange-200 border-orange-500 hover:bg-orange-300 dark:bg-orange-400 dark:border-orange-300 dark:hover:bg-orange-500" },
+  { id: "metais-transicao", name: "Metais de Transição", color: "bg-yellow-200 border-yellow-500 hover:bg-yellow-300 dark:bg-yellow-400 dark:border-yellow-300 dark:hover:bg-yellow-500" },
+  { id: "metais-representativos", name: "Metais Representativos", color: "bg-blue-200 border-blue-500 hover:bg-blue-300 dark:bg-blue-400 dark:border-blue-300 dark:hover:bg-blue-500" },
+  { id: "semimetais", name: "Semimetais", color: "bg-green-200 border-green-500 hover:bg-green-300 dark:bg-green-400 dark:border-green-300 dark:hover:bg-green-500" },
+  { id: "nao-metais", name: "Não Metais", color: "bg-purple-200 border-purple-500 hover:bg-purple-300 dark:bg-purple-400 dark:border-purple-300 dark:hover:bg-purple-500" },
+  { id: "halogenios", name: "Halogênios", color: "bg-pink-200 border-pink-500 hover:bg-pink-300 dark:bg-pink-400 dark:border-pink-300 dark:hover:bg-pink-500" },
+  { id: "gases-nobres", name: "Gases Nobres", color: "bg-indigo-200 border-indigo-500 hover:bg-indigo-300 dark:bg-indigo-400 dark:border-indigo-300 dark:hover:bg-indigo-500" },
+  { id: "lantanideos", name: "Lantanídeos", color: "bg-teal-200 border-teal-500 hover:bg-teal-300 dark:bg-teal-400 dark:border-teal-300 dark:hover:bg-teal-500" },
+  { id: "actinideos", name: "Actinídeos", color: "bg-cyan-200 border-cyan-500 hover:bg-cyan-300 dark:bg-cyan-400 dark:border-cyan-300 dark:hover:bg-cyan-500" },
+];
+
 
   const filteredElements = ELEMENTS.filter(
     (el) =>
@@ -188,22 +192,22 @@ export default function TabelaPeriodica() {
   return (
     <main
         className={`min-h-screen transition-colors duration-700 ease-in-out ${
-        darkMode ? "bg-gray-900 text-gray-100" : "bg-gradient-to-br from-blue-50 to-indigo-100 text-gray-900"
+        darkMode ? "bg-[#0f172a] text-gray-200" : "bg-gradient-to-br from-blue-50 to-indigo-100 text-gray-900"
       } p-4`}
     >
       {/* Botão Modo Escuro */}
       <button
         onClick={() => setDarkMode(!darkMode)}
-        className="ml-4 px-3 py-1 rounded-lg bg-white/10 hover:bg-white/20 transition"
+        className="ml-4 px-3 py-1 rounded-lg bg-black/10 hover:bg-white/1 transition"
       >
         {darkMode ? "☀️ Claro" : "🌙 Escuro"}
       </button>
 
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl font-bold text-center text-blue-800 dark:text-blue-300 mb-2">
+        <h1 className="text-4xl font-bold text-center text-blue-700 dark:text-blue-400 mb-2">
           Tabela Periódica Completa
         </h1>
-        <p className="text-center text-gray-600 dark:text-gray-300 mb-6">
+        <p className="text-center text-gray-700 dark:text-gray-300 mb-6">
           Explore os elementos químicos e descubra suas propriedades.
         </p>
 
@@ -223,16 +227,23 @@ export default function TabelaPeriodica() {
             <button
               key={family.id}
               onClick={() => setSelectedFamily(family.id)}
-              className={`px-3 py-2 rounded-lg font-medium transition-all text-sm ${
-                selectedFamily === family.id
-                  ? "ring-2 ring-blue-500 transform scale-105 shadow-lg"
-                  : "opacity-80 hover:opacity-100 shadow"
-              } ${family.color}`}
+              className={`px-3 py-2 rounded-lg font-medium transition-all text-sm
+                ${
+                  selectedFamily === family.id
+                    ? "ring-2 ring-blue-500 transform scale-105 shadow-lg"
+                    : "opacity-80 hover:opacity-100 shadow"
+                }
+                ${family.color}
+                dark:shadow-[0_0_8px_rgba(255,255,255,0.05)]
+                dark:brightness-110
+                dark:border dark:border-white/10
+              `}
             >
               {family.name}
             </button>
           ))}
         </div>
+
 
         {/* Tabela Principal */}
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 mb-6 transition-colors">
@@ -262,7 +273,8 @@ export default function TabelaPeriodica() {
                           onClick={() => setSelectedElement(element)}
                           className={`
                             w-full aspect-square rounded border-2 flex flex-col items-center justify-center 
-                            transition-all cursor-pointer font-bold text-xs
+                            transition-all cursor-pointer font-bold text-xs shadow-sm dark:shadow-[0_0_6px_rgba(255,255,255,0.2)] dark:border-[rgba(255,255,255,0.1)]
+
                             ${
                               isFiltered
                                 ? "hover:scale-110 " +

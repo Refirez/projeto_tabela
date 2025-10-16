@@ -28,9 +28,6 @@ export default function Login() {
         <div className="bg-white rounded-2xl shadow-2xl p-8">
           {/* Cabeçalho */}
           <div className="text-center mb-8">
-            <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-white text-2xl font-bold">TP</span>
-            </div>
             <h1 className="text-3xl font-bold text-gray-800 mb-2">Bem-vindo de volta</h1>
             <p className="text-gray-600">Entre na sua conta para continuar</p>
           </div>

@@ -103,9 +103,6 @@ export default function Cadastro() {
         <div className="bg-white rounded-2xl shadow-2xl p-8">
           {/* Cabeçalho */}
           <div className="text-center mb-8">
-            <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-white text-2xl font-bold">TP</span>
-            </div>
             <h1 className="text-3xl font-bold text-gray-800 mb-2">Criar conta</h1>
             <p className="text-gray-600">Junte-se à nossa comunidade</p>
           </div>
@@ -194,25 +191,6 @@ export default function Cadastro() {
                 <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>
               )}
             </div>
-
-            <label className="flex items-start">
-              <input
-                type="checkbox"
-                className="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500 mt-1"
-                required
-              />
-              <span className="ml-2 text-sm text-gray-600">
-                Concordo com os{" "}
-                <Link href="/terms" className="text-green-600 hover:text-green-500">
-                  Termos de Serviço
-                </Link>{" "}
-                e{" "}
-                <Link href="/privacy" className="text-green-600 hover:text-green-500">
-                  Política de Privacidade
-                </Link>
-              </span>
-            </label>
-
             <button
               type="submit"
               disabled={isLoading}

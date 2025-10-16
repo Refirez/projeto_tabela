@@ -156,6 +156,8 @@ const FAMILY_COLORS = {
 export default function TabelaPeriodica() {
   const [selectedElement, setSelectedElement] = useState<any>(null);
   const [selectedFamily, setSelectedFamily] = useState<string>("all");
+  const [search, setSearch] = useState("");
+  const [darkMode, setDarkMode] = useState(false);
 
   const families = [
     { id: "all", name: "Todos os Elementos", color: "bg-gray-200" },
@@ -171,39 +173,60 @@ export default function TabelaPeriodica() {
     { id: "actinideos", name: "Actinídeos", color: "bg-cyan-200" },
   ];
 
-  const filteredElements = selectedFamily === "all" 
-    ? ELEMENTS 
-    : ELEMENTS.filter(el => el.family === selectedFamily);
+  const filteredElements = ELEMENTS.filter(
+    (el) =>
+      (selectedFamily === "all" || el.family === selectedFamily) &&
+      (el.name.toLowerCase().includes(search) || el.symbol.toLowerCase().includes(search))
+  );
 
-  // Função para encontrar elemento por grupo e período
-  const getElement = (group: number, period: number) => {
-    return ELEMENTS.find(el => el.group === group && el.period === period);
-  };
+  const getElement = (group: number, period: number) =>
+    ELEMENTS.find((el) => el.group === group && el.period === period);
 
-  // Função para elementos dos lantanídeos e actinídeos
-  const getLanthanides = () => ELEMENTS.filter(el => el.family === "lantanideos");
-  const getActinides = () => ELEMENTS.filter(el => el.family === "actinideos");
+  const getLanthanides = () => ELEMENTS.filter((el) => el.family === "lantanideos");
+  const getActinides = () => ELEMENTS.filter((el) => el.family === "actinideos");
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+    <main
+        className={`min-h-screen transition-colors duration-700 ease-in-out ${
+        darkMode ? "bg-gray-900 text-gray-100" : "bg-gradient-to-br from-blue-50 to-indigo-100 text-gray-900"
+      } p-4`}
+    >
+      {/* Botão Modo Escuro */}
+      <button
+        onClick={() => setDarkMode(!darkMode)}
+        className="ml-4 px-3 py-1 rounded-lg bg-white/10 hover:bg-white/20 transition"
+      >
+        {darkMode ? "☀️ Claro" : "🌙 Escuro"}
+      </button>
+
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl font-bold text-center text-blue-800 mb-2">
+        <h1 className="text-4xl font-bold text-center text-blue-800 dark:text-blue-300 mb-2">
           Tabela Periódica Completa
         </h1>
-        <p className="text-center text-gray-600 mb-8">
-          
+        <p className="text-center text-gray-600 dark:text-gray-300 mb-6">
+          Explore os elementos químicos e descubra suas propriedades.
         </p>
+
+        {/* Campo de Busca */}
+        <div className="flex justify-center mb-8">
+          <input
+            type="text"
+            placeholder="Buscar elemento ou símbolo..."
+            onChange={(e) => setSearch(e.target.value.toLowerCase())}
+            className="w-80 px-4 py-2 rounded-lg shadow border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-blue-400 outline-none"
+          />
+        </div>
 
         {/* Filtros por Família */}
         <div className="flex flex-wrap gap-2 justify-center mb-8">
-          {families.map(family => (
+          {families.map((family) => (
             <button
               key={family.id}
               onClick={() => setSelectedFamily(family.id)}
               className={`px-3 py-2 rounded-lg font-medium transition-all text-sm ${
-                selectedFamily === family.id 
-                  ? 'ring-2 ring-blue-500 transform scale-105 shadow-lg' 
-                  : 'opacity-80 hover:opacity-100 shadow'
+                selectedFamily === family.id
+                  ? "ring-2 ring-blue-500 transform scale-105 shadow-lg"
+                  : "opacity-80 hover:opacity-100 shadow"
               } ${family.color}`}
             >
               {family.name}
@@ -211,44 +234,52 @@ export default function TabelaPeriodica() {
           ))}
         </div>
 
-        {/* Tabela Periódica Principal */}
-        <div className="bg-white rounded-2xl shadow-2xl p-6 mb-6">
+        {/* Tabela Principal */}
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 mb-6 transition-colors">
           {/* Cabeçalho dos Grupos */}
           <div className="grid grid-cols-18 gap-1 mb-1 ml-16">
-            {Array.from({ length: 18 }, (_, i) => i + 1).map(group => (
-              <div key={group} className="text-center text-xs font-bold text-gray-600">
+            {Array.from({ length: 18 }, (_, i) => i + 1).map((group) => (
+              <div key={group} className="text-center text-xs font-bold text-gray-600 dark:text-gray-300">
                 {group}
               </div>
             ))}
           </div>
 
           {/* Corpo da Tabela */}
-          {[1, 2, 3, 4, 5, 6, 7].map(period => (
+          {[1, 2, 3, 4, 5, 6, 7].map((period) => (
             <div key={period} className="flex gap-1 mb-1">
-              <div className="w-16 flex items-center justify-center text-sm font-bold text-gray-600">
+              <div className="w-16 flex items-center justify-center text-sm font-bold text-gray-600 dark:text-gray-300">
                 {period}
               </div>
               <div className="grid grid-cols-18 gap-1 flex-1">
-                {Array.from({ length: 18 }, (_, i) => i + 1).map(group => {
+                {Array.from({ length: 18 }, (_, i) => i + 1).map((group) => {
                   const element = getElement(group, period);
                   if (element) {
                     const isFiltered = filteredElements.includes(element);
                     return (
-                      <button
-                        key={`${period}-${group}`}
-                        onClick={() => setSelectedElement(element)}
-                        className={`
-                          w-full aspect-square rounded border-2 flex flex-col items-center justify-center 
-                          transition-all cursor-pointer font-bold text-xs
-                          ${isFiltered 
-                            ? 'hover:scale-110 ' + FAMILY_COLORS[element.family as keyof typeof FAMILY_COLORS]
-                            : 'opacity-40 bg-gray-100 border-gray-300'
-                          }
-                        `}
-                      >
-                        <span className="text-[10px]">{element.number}</span>
-                        <span className="text-sm">{element.symbol}</span>
-                      </button>
+                      <div key={`${period}-${group}`} className="relative group">
+                        <button
+                          onClick={() => setSelectedElement(element)}
+                          className={`
+                            w-full aspect-square rounded border-2 flex flex-col items-center justify-center 
+                            transition-all cursor-pointer font-bold text-xs
+                            ${
+                              isFiltered
+                                ? "hover:scale-110 " +
+                                  FAMILY_COLORS[element.family as keyof typeof FAMILY_COLORS]
+                                : "opacity-40 bg-gray-100 border-gray-300 dark:bg-gray-700 dark:border-gray-600"
+                            }
+                          `}
+                        >
+                          <span className="text-[10px]">{element.number}</span>
+                          <span className="text-sm">{element.symbol}</span>
+                        </button>
+
+                        {/* Tooltip */}
+                        <div className="absolute hidden group-hover:block bg-black bg-opacity-80 text-white text-[10px] rounded px-2 py-1 bottom-full mb-1 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                          {element.name} ({element.mass})
+                        </div>
+                      </div>
                     );
                   }
                   return <div key={`${period}-${group}`} className="aspect-square" />;
@@ -258,13 +289,13 @@ export default function TabelaPeriodica() {
           ))}
         </div>
 
-        {/* Série dos Lantanídeos e Actinídeos */}
+        {/* Séries Lantanídeos e Actinídeos */}
         <div className="grid grid-cols-2 gap-6 mb-8">
           {/* Lantanídeos */}
-          <div className="bg-white rounded-2xl shadow-2xl p-4">
-            <h3 className="text-center font-bold text-gray-700 mb-2">Lantanídeos</h3>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-4 transition-colors">
+            <h3 className="text-center font-bold text-gray-700 dark:text-gray-200 mb-2">Lantanídeos</h3>
             <div className="grid grid-cols-8 gap-1">
-              {getLanthanides().map(element => {
+              {getLanthanides().map((element) => {
                 const isFiltered = filteredElements.includes(element);
                 return (
                   <button
@@ -273,9 +304,11 @@ export default function TabelaPeriodica() {
                     className={`
                       aspect-square rounded border-2 flex flex-col items-center justify-center 
                       transition-all cursor-pointer font-bold text-xs
-                      ${isFiltered 
-                        ? 'hover:scale-110 ' + FAMILY_COLORS[element.family as keyof typeof FAMILY_COLORS]
-                        : 'opacity-40 bg-gray-100 border-gray-300'
+                      ${
+                        isFiltered
+                          ? "hover:scale-110 " +
+                            FAMILY_COLORS[element.family as keyof typeof FAMILY_COLORS]
+                          : "opacity-40 bg-gray-100 border-gray-300 dark:bg-gray-700 dark:border-gray-600"
                       }
                     `}
                   >
@@ -288,10 +321,10 @@ export default function TabelaPeriodica() {
           </div>
 
           {/* Actinídeos */}
-          <div className="bg-white rounded-2xl shadow-2xl p-4">
-            <h3 className="text-center font-bold text-gray-700 mb-2">Actinídeos</h3>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-4 transition-colors">
+            <h3 className="text-center font-bold text-gray-700 dark:text-gray-200 mb-2">Actinídeos</h3>
             <div className="grid grid-cols-8 gap-1">
-              {getActinides().map(element => {
+              {getActinides().map((element) => {
                 const isFiltered = filteredElements.includes(element);
                 return (
                   <button
@@ -300,9 +333,11 @@ export default function TabelaPeriodica() {
                     className={`
                       aspect-square rounded border-2 flex flex-col items-center justify-center 
                       transition-all cursor-pointer font-bold text-xs
-                      ${isFiltered 
-                        ? 'hover:scale-110 ' + FAMILY_COLORS[element.family as keyof typeof FAMILY_COLORS]
-                        : 'opacity-40 bg-gray-100 border-gray-300'
+                      ${
+                        isFiltered
+                          ? "hover:scale-110 " +
+                            FAMILY_COLORS[element.family as keyof typeof FAMILY_COLORS]
+                          : "opacity-40 bg-gray-100 border-gray-300 dark:bg-gray-700 dark:border-gray-600"
                       }
                     `}
                   >
@@ -318,22 +353,24 @@ export default function TabelaPeriodica() {
         {/* Modal */}
         {selectedElement && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-md w-full p-6">
               <div className="flex justify-between items-start mb-4">
-                <h2 className="text-2xl font-bold text-gray-800">
+                <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
                   {selectedElement.name}
                 </h2>
                 <button
                   onClick={() => setSelectedElement(null)}
-                  className="text-gray-500 hover:text-gray-700 text-2xl"
+                  className="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 text-2xl"
                 >
                   ×
                 </button>
               </div>
-              
-              <div className={`p-4 rounded-lg mb-4 ${
-                FAMILY_COLORS[selectedElement.family as keyof typeof FAMILY_COLORS] || "bg-gray-200"
-              }`}>
+
+              <div
+                className={`p-4 rounded-lg mb-4 ${
+                  FAMILY_COLORS[selectedElement.family as keyof typeof FAMILY_COLORS] || "bg-gray-200"
+                }`}
+              >
                 <div className="text-center">
                   <span className="text-5xl font-bold block mb-2">
                     {selectedElement.symbol}
@@ -344,7 +381,7 @@ export default function TabelaPeriodica() {
                 </div>
               </div>
 
-              <div className="space-y-3">
+              <div className="space-y-3 text-gray-700 dark:text-gray-300">
                 <div className="flex justify-between border-b pb-2">
                   <span className="font-semibold">Massa Atômica:</span>
                   <span>{selectedElement.mass} u</span>
@@ -352,7 +389,7 @@ export default function TabelaPeriodica() {
                 <div className="flex justify-between border-b pb-2">
                   <span className="font-semibold">Família:</span>
                   <span className="capitalize">
-                    {selectedElement.family.replace('-', ' ')}
+                    {selectedElement.family.replace("-", " ")}
                   </span>
                 </div>
                 <div className="flex justify-between border-b pb-2">
@@ -367,8 +404,7 @@ export default function TabelaPeriodica() {
 
               <button
                 onClick={() => setSelectedElement(null)}
-                className="w-full mt-6 bg-blue-600 text-white py-3 rounded-lg 
-                         hover:bg-blue-700 transition font-semibold"
+                className="w-full mt-6 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition font-semibold"
               >
                 Fechar
               </button>

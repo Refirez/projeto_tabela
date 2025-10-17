@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 // Dados completos dos 118 elementos
 const ELEMENTS = [
@@ -190,6 +191,12 @@ export default function TabelaPeriodica() {
   const getActinides = () => ELEMENTS.filter((el) => el.family === "actinideos");
 
   return (
+    <motion.div
+    initial={{ opacity: 0, scale: 0.95 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 1.2, ease: "easeOut" }}
+    className={`${darkMode ? "dark" : ""} min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-500`}
+    >
     <main
         className={`min-h-screen transition-colors duration-700 ease-in-out ${
         darkMode ? "bg-[#0f172a] text-gray-200" : "bg-gradient-to-br from-blue-50 to-indigo-100 text-gray-900"
@@ -425,5 +432,6 @@ export default function TabelaPeriodica() {
         )}
       </div>
     </main>
+    </motion.div>
   );
 }

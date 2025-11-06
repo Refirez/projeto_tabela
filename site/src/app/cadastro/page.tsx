@@ -47,42 +47,50 @@ export default function Cadastro() {
     return !newErrors.password && !newErrors.confirmPassword && !newErrors.general;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setErrors({ password: "", confirmPassword: "", general: "" });
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setIsLoading(true);
+  setErrors({ password: "", confirmPassword: "", general: "" });
 
-    if (!validateForm()) {
-      setIsLoading(false);
+  // Validação básica
+  if (formData.password.length < 6) {
+    setErrors(prev => ({ ...prev, password: "A senha deve ter no mínimo 6 caracteres" }));
+    setIsLoading(false);
+    return;
+  }
+  if (formData.password !== formData.confirmPassword) {
+    setErrors(prev => ({ ...prev, confirmPassword: "As senhas não coincidem" }));
+    setIsLoading(false);
+    return;
+  }
+
+  try {
+    const res = await fetch("/api/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      setErrors(prev => ({ ...prev, general: data.error || "Erro ao criar conta." }));
       return;
     }
 
-    try {
-      // Criar objeto do usuário
-      const userData = {
-        id: Date.now().toString(),
-        name: formData.name,
-        email: formData.email,
-        // Em uma aplicação real, a senha seria enviada para um backend seguro
-      };
+    console.log("Usuário criado:", data);
+    router.push("/login"); // redireciona para login após cadastro
+  } catch (err) {
+    setErrors(prev => ({ ...prev, general: "Erro de conexão com o servidor." }));
+  } finally {
+    setIsLoading(false);
+  }
+};
 
-      // Registrar usuário no contexto de autenticação
-      register(userData);
-      
-      console.log("Cadastro realizado:", userData);
-      
-      // Redirecionar para a página inicial
-      router.push("/");
-      
-    } catch (error) {
-      setErrors(prev => ({
-        ...prev,
-        general: "Erro ao criar conta. Tente novamente."
-      }));
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({

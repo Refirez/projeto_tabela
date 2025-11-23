@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 
 export const useGlobalStyles = () => {
+  
   const theme = useTheme();
   
   return StyleSheet.create({

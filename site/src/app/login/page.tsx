@@ -8,11 +8,31 @@ export default function Login() {
     password: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Login attempt:", formData);
-    // Aqui você adicionaria a lógica de autenticação
-  };
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  try {
+    const res = await fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert(data.error || "Erro ao fazer login.");
+      return;
+    }
+
+    console.log("Usuário logado:", data.user);
+    // Exemplo: redirecionar para página protegida
+    // router.push("/perfil");
+  } catch (error) {
+    alert("Erro de conexão com o servidor.");
+  }
+};
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({

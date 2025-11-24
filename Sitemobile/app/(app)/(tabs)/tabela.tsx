@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Modal,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-  useWindowDimensions
+    Modal,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
+    useWindowDimensions
 } from 'react-native';
 
-// DEFINA O ARRAY ELEMENTS AQUI
 // DADOS COMPLETOS DA TABELA PERIÓDICA
 const ELEMENTS = [
   // Período 1
@@ -150,7 +149,7 @@ const ELEMENTS = [
   { number: 103, symbol: "Lr", name: "Laurêncio", mass: "262.0", family: "actinideos", group: 3, period: 7 },
 ];
 
-// DEFINA AS CORES DAS FAMÍLIAS (para React Native)
+// CORES DAS FAMÍLIAS
 const FAMILY_COLORS = {
   "metais-alcalinos": { bg: "#fecaca", border: "#f87171", text: "#991b1b" },
   "metais-alcalino-terrosos": { bg: "#fed7aa", border: "#fb923c", text: "#9a3412" },
@@ -459,268 +458,268 @@ export default function TabelaScreen() {
               />
             ))}
 
-            {/* LANTANÍDEOS E ACTINÍDEOS */}
-            <SeriesRow 
-              title="Lantanídeos"
-              family="lantanideos"
-              elements={ELEMENTS}
-              onElementPress={setSelectedElement}
-              elementSize={elementSize}
-              fontSize={elementFontSize}
-            />
-            
-            <SeriesRow 
-              title="Actinídeos"
-              family="actinideos"
-              elements={ELEMENTS}
-              onElementPress={setSelectedElement}
-              elementSize={elementSize}
-              fontSize={elementFontSize}
-            />
+           {/* LANTANÍDEOS E ACTINÍDEOS */}
+                <SeriesRow 
+                title="Lantanídeos"
+                family="lantanideos"
+                elements={ELEMENTS}
+                onElementPress={setSelectedElement}
+                elementSize={elementSize}
+                fontSize={elementFontSize}
+                />
 
-            {/* LEGENDA */}
-            <Legend />
-          </View>
-        )}
-      </ScrollView>
+                <SeriesRow 
+                title="Actinídeos"
+                family="actinideos"
+                elements={ELEMENTS}
+                onElementPress={setSelectedElement}
+                elementSize={elementSize}
+                fontSize={elementFontSize}
+                />
 
-      {/* Modal de Detalhes */}
-      <Modal
-        visible={!!selectedElement}
-        animationType="slide"
-        transparent={true}
-        onRequestClose={() => setSelectedElement(null)}
-      >
-        {selectedElement && (
-          <ElementModal 
-            element={selectedElement} 
-            onClose={() => setSelectedElement(null)} 
-          />
-        )}
-      </Modal>
-    </View>
-  );
-}
+                {/* LEGENDA */}
+                <Legend />
+                </View>
+                )}
+                </ScrollView>
 
-// ESTILOS
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f8fafc',
-  },
-  header: {
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#1f2937',
-  },
-  searchInput: {
-    borderWidth: 1,
-    borderColor: '#d1d5db',
-    borderRadius: 8,
-    padding: 12,
-    backgroundColor: 'white',
-    fontSize: 16,
-  },
-  orientationWarning: {
-    backgroundColor: '#fbbf24',
-    borderRadius: 8,
-    padding: 12,
-    marginBottom: 16,
-  },
-  warningText: {
-    fontSize: 14,
-    textAlign: 'center',
-    color: '#92400e',
-    fontWeight: '600',
-  },
-  scrollContent: {
-    flexGrow: 1,
-  },
-  searchContainer: {
-    flex: 1,
-  },
-  resultsCount: {
-    textAlign: 'center',
-    marginBottom: 16,
-    fontSize: 14,
-    color: '#6b7280',
-  },
-  searchGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 8,
-    justifyContent: 'center',
-  },
-  tableWrapper: {
-    flex: 1,
-  },
-  periodRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  periodNumber: {
-    width: 24,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 8,
-  },
-  periodText: {
-    fontWeight: 'bold',
-    color: '#374151',
-  },
-  elementsRow: {
-    flexDirection: 'row',
-    flex: 1,
-    gap: 3,
-  },
-  emptyElement: {
-    borderWidth: 1,
-    borderColor: 'transparent'
-  },
-  seriesContainer: {
-    marginVertical: 12,
-  },
-  seriesTitle: {
-    textAlign: 'center',
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#374151',
-    marginBottom: 8,
-  },
-  seriesRow: {
-    flexDirection: 'row',
-    gap: 3,
-    justifyContent: 'center',
-    flexWrap: 'wrap',
-  },
-  elementCard: {
-    borderWidth: 1,
-    borderRadius: 6,
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'relative',
-  },
-  elementNumber: {
-    position: 'absolute',
-    top: 2,
-    left: 2,
-    fontWeight: 'bold',
-  },
-  elementSymbol: {
-    fontWeight: 'bold',
-  },
-  elementName: {
-    fontSize: 6,
-    fontWeight: '500',
-    marginTop: 2,
-    textAlign: 'center',
-  },
-  legendContainer: {
-    marginTop: 20,
-    padding: 16,
-    backgroundColor: '#f1f5f9',
-    borderRadius: 8,
-  },
-  legendTitle: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    marginBottom: 12,
-    textAlign: 'center',
-  },
-  legendGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 12,
-    justifyContent: 'center',
-  },
-  legendItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-  },
-  legendColor: {
-    width: 12,
-    height: 12,
-    borderWidth: 1,
-    borderRadius: 2,
-  },
-  legendText: {
-    fontSize: 10,
-    color: '#374151',
-  },
-});
+                {/* Modal de Detalhes */}
+                <Modal
+                visible={!!selectedElement}
+                animationType="slide"
+                transparent={true}
+                onRequestClose={() => setSelectedElement(null)}
+                >
+                {selectedElement && (
+                    <ElementModal 
+                    element={selectedElement} 
+                    onClose={() => setSelectedElement(null)} 
+                    />
+                )}
+                </Modal>
+                </View>
+                );
+                }
 
-// ESTILOS DO MODAL
-const modalStyles = StyleSheet.create({
-  overlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 16,
-  },
-  container: {
-    backgroundColor: 'white',
-    borderRadius: 16,
-    padding: 24,
-    width: '100%',
-    maxWidth: 400,
-    maxHeight: '90%',
-  },
-  header: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#1f2937',
-    flex: 1,
-  },
-  closeButton: {
-    backgroundColor: '#f3f4f6',
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: 8,
-  },
-  content: {
-    borderRadius: 12,
-    padding: 24,
-    alignItems: 'center',
-    marginBottom: 24,
-  },
-  detailRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: '#e5e7eb',
-  },
-  detailLabel: {
-    fontWeight: '600',
-    color: '#1f2937',
-    fontSize: 16,
-  },
-  detailValue: {
-    color: '#6b7280',
-    fontSize: 16,
-  },
-  actionButton: {
-    backgroundColor: '#3b82f6',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 8,
-    marginTop: 16,
-    alignItems: 'center',
-  },
-  actionButtonText: {
-    color: 'white',
-    fontWeight: '600',
-    fontSize: 16,
-  },
-});
+                // ESTILOS
+                const styles = StyleSheet.create({
+                container: {
+                    flex: 1,
+                    backgroundColor: '#f8fafc',
+                },
+                header: {
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginBottom: 16,
+                },
+                title: {
+                    fontSize: 24,
+                    fontWeight: 'bold',
+                    color: '#1f2937',
+                },
+                searchInput: {
+                    borderWidth: 1,
+                    borderColor: '#d1d5db',
+                    borderRadius: 8,
+                    padding: 12,
+                    backgroundColor: 'white',
+                    fontSize: 16,
+                },
+                orientationWarning: {
+                    backgroundColor: '#fbbf24',
+                    borderRadius: 8,
+                    padding: 12,
+                    marginBottom: 16,
+                },
+                warningText: {
+                    fontSize: 14,
+                    textAlign: 'center',
+                    color: '#92400e',
+                    fontWeight: '600',
+                },
+                scrollContent: {
+                    flexGrow: 1,
+                },
+                searchContainer: {
+                    flex: 1,
+                },
+                resultsCount: {
+                    textAlign: 'center',
+                    marginBottom: 16,
+                    fontSize: 14,
+                    color: '#6b7280',
+                },
+                searchGrid: {
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                    gap: 8,
+                    justifyContent: 'center',
+                },
+                tableWrapper: {
+                    flex: 1,
+                },
+                periodRow: {
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                },
+                periodNumber: {
+                    width: 24,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginRight: 8,
+                },
+                periodText: {
+                    fontWeight: 'bold',
+                    color: '#374151',
+                },
+                elementsRow: {
+                    flexDirection: 'row',
+                    flex: 1,
+                    gap: 3,
+                },
+                emptyElement: {
+                    borderWidth: 1,
+                    borderColor: 'transparent'
+                },
+                seriesContainer: {
+                    marginVertical: 12,
+                },
+                seriesTitle: {
+                    textAlign: 'center',
+                    fontSize: 14,
+                    fontWeight: 'bold',
+                    color: '#374151',
+                    marginBottom: 8,
+                },
+                seriesRow: {
+                    flexDirection: 'row',
+                    gap: 3,
+                    justifyContent: 'center',
+                    flexWrap: 'wrap',
+                },
+                elementCard: {
+                    borderWidth: 1,
+                    borderRadius: 6,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    position: 'relative',
+                },
+                elementNumber: {
+                    position: 'absolute',
+                    top: 2,
+                    left: 2,
+                    fontWeight: 'bold',
+                },
+                elementSymbol: {
+                    fontWeight: 'bold',
+                },
+                elementName: {
+                    fontSize: 6,
+                    fontWeight: '500',
+                    marginTop: 2,
+                    textAlign: 'center',
+                },
+                legendContainer: {
+                    marginTop: 20,
+                    padding: 16,
+                    backgroundColor: '#f1f5f9',
+                    borderRadius: 8,
+                },
+                legendTitle: {
+                    fontSize: 14,
+                    fontWeight: 'bold',
+                    marginBottom: 12,
+                    textAlign: 'center',
+                },
+                legendGrid: {
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                    gap: 12,
+                    justifyContent: 'center',
+                },
+                legendItem: {
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: 4,
+                },
+                legendColor: {
+                    width: 12,
+                    height: 12,
+                    borderWidth: 1,
+                    borderRadius: 2,
+                },
+                legendText: {
+                    fontSize: 10,
+                    color: '#374151',
+                },
+                });
+
+                // ESTILOS DO MODAL
+                const modalStyles = StyleSheet.create({
+                overlay: {
+                    flex: 1,
+                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    padding: 16,
+                },
+                container: {
+                    backgroundColor: 'white',
+                    borderRadius: 16,
+                    padding: 24,
+                    width: '100%',
+                    maxWidth: 400,
+                    maxHeight: '90%',
+                },
+                header: {
+                    fontSize: 24,
+                    fontWeight: 'bold',
+                    color: '#1f2937',
+                    flex: 1,
+                },
+                closeButton: {
+                    backgroundColor: '#f3f4f6',
+                    width: 32,
+                    height: 32,
+                    borderRadius: 16,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginLeft: 8,
+                },
+                content: {
+                    borderRadius: 12,
+                    padding: 24,
+                    alignItems: 'center',
+                    marginBottom: 24,
+                },
+                detailRow: {
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    paddingVertical: 8,
+                    borderBottomWidth: 1,
+                    borderBottomColor: '#e5e7eb',
+                },
+                detailLabel: {
+                    fontWeight: '600',
+                    color: '#1f2937',
+                    fontSize: 16,
+                },
+                detailValue: {
+                    color: '#6b7280',
+                    fontSize: 16,
+                },
+                actionButton: {
+                    backgroundColor: '#3b82f6',
+                    paddingVertical: 12,
+                    paddingHorizontal: 16,
+                    borderRadius: 8,
+                    marginTop: 16,
+                    alignItems: 'center',
+                },
+                actionButtonText: {
+                    color: 'white',
+                    fontWeight: '600',
+                    fontSize: 16,
+                },
+                });
